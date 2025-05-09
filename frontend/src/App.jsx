@@ -12,9 +12,12 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Context } from "./main";
 import Login from "./Pages/Login";
-const App = () => {
-  const { isAuthenticated, setIsAuthenticated, setUser } =
-    useContext(Context);
+
+// Import the Chatbot component
+import Chatbot from "./components/Chatbot";
+
+function App() {
+  const { isAuthenticated, setIsAuthenticated, setUser } = useContext(Context);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -47,10 +50,14 @@ const App = () => {
           <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
+        
+
+        {/* Add the Chatbot component here */}
+        <Chatbot />
         <ToastContainer position="top-center" />
       </Router>
     </>
   );
-};
+}
 
 export default App;

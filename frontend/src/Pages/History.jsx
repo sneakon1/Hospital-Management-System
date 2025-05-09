@@ -1,17 +1,15 @@
 import React from "react";
 import Hero from "../components/Hero";
-import AppointmentForm from "../components/AppointmentForm";
 
-const Appointment = () => {
+const History = () => {
   return (
     <>
       <Hero
         title={"Schedule Your Appointment | VSCare Medical Institute"}
         imageUrl={"/signin.png"}
       />
-      <AppointmentForm/>
     </>
   );
 };
 
-export default Appointment;
+export default History;
