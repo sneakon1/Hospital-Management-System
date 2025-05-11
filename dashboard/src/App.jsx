@@ -10,12 +10,15 @@ import Login from "./components/Login";
 import AddNewDoctor from "./components/AddNewDoctor";
 import Messages from "./components/Messages";
 import Doctors from "./components/Doctors";
+import AddNewAdmin from "./components/AddNewAdmin";
+import Sidebar from "./components/Sidebar";
+import Stats from "./components/Stats"; // ✅ Imported Stats component
+
 import { Context } from "./main";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Sidebar from "./components/Sidebar";
-import AddNewAdmin from "./components/AddNewAdmin";
+
 import "./App.css";
 
 const App = () => {
@@ -51,6 +54,7 @@ const App = () => {
         <Route path="/admin/addnew" element={<AddNewAdmin />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/doctors" element={<Doctors />} />
+        <Route path="/stats" element={<Stats />} /> {/* ✅ Added Stats route */}
       </Routes>
       <ToastContainer position="top-center" />
     </Router>

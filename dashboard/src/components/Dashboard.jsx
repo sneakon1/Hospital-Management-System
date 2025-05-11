@@ -8,6 +8,20 @@ import { AiFillCloseCircle } from "react-icons/ai";
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
+  const [filterStatus, setFilterStatus] = useState("All");
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      const { data } = await axios.get(
+        "http://localhost:5000/api/v1/user/doctors",
+        { withCredentials: true }
+      );
+      setDoctors(data.doctors);
+      console.log(data.doctors);
+    };
+    fetchDoctors();
+  }, []);
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -72,15 +86,32 @@ const Dashboard = () => {
           </div>
           <div className="secondBox">
             <p>Total Appointments</p>
-            <h3>1500</h3>
+            <h3>{appointments.length}</h3>
           </div>
           <div className="thirdBox">
             <p>Registered Doctors</p>
-            <h3>10</h3>
+            <h3>{doctors.length}</h3>
           </div>
         </div>
+
         <div className="banner">
           <h5>Appointments</h5>
+
+          {/* Filter Dropdown */}
+          <div style={{ marginBottom: "1rem" }}>
+            <label htmlFor="statusFilter">Filter by Status: </label>
+            <select
+              id="statusFilter"
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="Pending">Pending</option>
+              <option value="Accepted">Accepted</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+
           <table>
             <thead>
               <tr>
@@ -93,8 +124,14 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {appointments && appointments.length > 0
-                ? appointments.map((appointment) => (
+              {appointments && appointments.length > 0 ? (
+                appointments
+                  .filter((appointment) =>
+                    filterStatus === "All"
+                      ? true
+                      : appointment.status === filterStatus
+                  )
+                  .map((appointment) => (
                     <tr key={appointment._id}>
                       <td>{`${appointment.firstName} ${appointment.lastName}`}</td>
                       <td>{appointment.appointment_date.substring(0, 16)}</td>
@@ -111,28 +148,50 @@ const Dashboard = () => {
                           }
                           value={appointment.status}
                           onChange={(e) =>
-                            handleUpdateStatus(appointment._id, e.target.value)
+                            handleUpdateStatus(
+                              appointment._id,
+                              e.target.value
+                            )
                           }
                         >
-                          <option value="Pending" className="value-pending">
+                          <option
+                            value="Pending"
+                            className="value-pending"
+                          >
                             Pending
                           </option>
-                          <option value="Accepted" className="value-accepted">
+                          <option
+                            value="Accepted"
+                            className="value-accepted"
+                          >
                             Accepted
                           </option>
-                          <option value="Rejected" className="value-rejected">
+                          <option
+                            value="Rejected"
+                            className="value-rejected"
+                          >
                             Rejected
                           </option>
                         </select>
                       </td>
-                      <td>{appointment.hasVisited === true ? <GoCheckCircleFill className="green"/> : <AiFillCloseCircle className="red"/>}</td>
+                      <td>
+                        {appointment.hasVisited === true ? (
+                          <GoCheckCircleFill className="green" />
+                        ) : (
+                          <AiFillCloseCircle className="red" />
+                        )}
+                      </td>
                     </tr>
                   ))
-                : "No Appointments Found!"}
+              ) : (
+                <tr>
+                  <td colSpan="6" style={{ textAlign: "center" }}>
+                    No Appointments Found!
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
-
-          {}
         </div>
       </section>
     </>

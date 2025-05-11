@@ -69,8 +69,9 @@ const Departments = () => {
     <>
       <div className="container departments">
         <h2>Departments</h2>
-        <Carousel
+        <Carousel       
           responsive={responsive}
+          autoPlay
           removeArrowOnDeviceType={[
             // "superLargeDesktop",
             // "desktop",

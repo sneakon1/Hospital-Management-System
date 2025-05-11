@@ -4,7 +4,7 @@ import { RiLogoutBoxFill } from "react-icons/ri";
 import { AiFillMessage } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUserDoctor } from "react-icons/fa6";
-import { MdAddModerator } from "react-icons/md";
+import { MdAddModerator, MdQueryStats } from "react-icons/md"; // <-- Added MdQueryStats
 import { IoPersonAddSharp } from "react-icons/io5";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -13,8 +13,8 @@ import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [show, setShow] = useState(false);
-
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+  const navigateTo = useNavigate();
 
   const handleLogout = async () => {
     await axios
@@ -30,27 +30,29 @@ const Sidebar = () => {
       });
   };
 
-  const navigateTo = useNavigate();
-
   const gotoHomePage = () => {
     navigateTo("/");
-    setShow(!show);
+    setShow(false);
   };
   const gotoDoctorsPage = () => {
     navigateTo("/doctors");
-    setShow(!show);
+    setShow(false);
   };
   const gotoMessagesPage = () => {
     navigateTo("/messages");
-    setShow(!show);
+    setShow(false);
   };
   const gotoAddNewDoctor = () => {
     navigateTo("/doctor/addnew");
-    setShow(!show);
+    setShow(false);
   };
   const gotoAddNewAdmin = () => {
     navigateTo("/admin/addnew");
-    setShow(!show);
+    setShow(false);
+  };
+  const gotoStatsPage = () => {
+    navigateTo("/stats"); // <-- New stats route
+    setShow(false);
   };
 
   return (
@@ -65,6 +67,7 @@ const Sidebar = () => {
           <MdAddModerator onClick={gotoAddNewAdmin} />
           <IoPersonAddSharp onClick={gotoAddNewDoctor} />
           <AiFillMessage onClick={gotoMessagesPage} />
+          <MdQueryStats onClick={gotoStatsPage} /> {/* <-- New Stats Icon */}
           <RiLogoutBoxFill onClick={handleLogout} />
         </div>
       </nav>

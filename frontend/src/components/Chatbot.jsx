@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Chatbot.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-regular-svg-icons';
+import siri from '../../public/siri.gif';
 
 const chatbotResponses = {
   "hello": "Hi there! How can I help you today?",
@@ -16,12 +17,12 @@ const Chatbot = () => {
   const [input, setInput] = useState('');
   const [chatOpen, setChatOpen] = useState(false);
 
-  const sendMessage = () => {
-    if (!input.trim()) return;
-
-    const userMessage = { sender: 'user', text: input };
+  const sendMessage = (message = null) => {
+    if(!message && !input.trim()) return;
+    
+    const userMessage = { sender: 'user', text: message ?? input };
     const botReplyText =
-      chatbotResponses[input.toLowerCase()] || "I'm sorry, I didn't understand that.";
+      chatbotResponses[(message ?? input.toLowerCase())] || "I'm sorry, I didn't understand that.";
     const botMessage = { sender: 'bot', text: botReplyText };
 
     setMessages([...messages, userMessage, botMessage]);
@@ -34,13 +35,17 @@ const Chatbot = () => {
 
   return (
     <div>
-      <button className="chatbot-toggle" onClick={toggleChat}>
-        <FontAwesomeIcon icon={faCommentDots} size="2x" />
-      </button>
+
+      <img className='chatbot-toggle' src={siri} onClick={toggleChat} />
 
       {chatOpen && (
         <div className="chatbot">
           <div className="chat-window">
+            {Object.keys(chatbotResponses).map((key, index) => {
+              return <div key={index} className='bot-response' onClick={() => {
+                sendMessage(key);
+              }}>{key}</div>
+            })}
             {messages.map((msg, index) => (
               <div key={index} className={`message ${msg.sender}`}>
                 {msg.text}
@@ -55,7 +60,7 @@ const Chatbot = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
             />
-            <button onClick={sendMessage}>Send</button>
+            <button onClick={()=>sendMessage()}>Send</button>
           </div>
         </div>
       )}
