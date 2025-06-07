@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { GoCheckCircleFill } from "react-icons/go";
 import { AiFillCloseCircle } from "react-icons/ai";
+import VideoCall from "../components/VideoCall";
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
@@ -88,6 +89,10 @@ const Dashboard = () => {
             <p>Registered Doctors</p>
             <h3>{doctors.length}</h3>
           </div>
+          <div className="video-call-box">
+  <VideoCall />
+</div>
+
         </div>
 
         <div className="banner">

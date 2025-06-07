@@ -16,8 +16,7 @@
   position: fixed;
   bottom: 100px;
   right: 20px;
-  width: 300px;
-  max-height: 400px;
+  width: 320px;
   background-color: #cdddeb;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -26,29 +25,37 @@
   flex-direction: column;
 }
 
+/* Chat Window that grows with content */
 .chat-window {
-  overflow-y: auto;
-  height: 400px;
-  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
+/* Message Styling */
 .message {
   margin: 5px 0;
-  padding: 8px;
+  padding: 8px 10px;
   background-color: #e5e5e5;
   border-radius: 5px;
+  max-width: 90%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .message.user {
   background-color: #3abe66;
   color: white;
-  width: max-content;
+  align-self: flex-end;
 }
 
 .message.bot {
   background-color: #fff;
+  align-self: flex-start;
 }
 
+/* Input Area */
 .input-area {
   display: flex;
   justify-content: space-between;
@@ -77,6 +84,7 @@
   background-color: #128c7e;
 }
 
+/* Quick Response Buttons */
 .bot-response {
   display: inline-block;
   border: 1px solid rgb(121, 120, 120);
