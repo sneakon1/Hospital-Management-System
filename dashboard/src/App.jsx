@@ -13,6 +13,7 @@ import Doctors from "./components/Doctors";
 import AddNewAdmin from "./components/AddNewAdmin";
 import Sidebar from "./components/Sidebar";
 import Stats from "./components/Stats"; // ✅ Imported Stats component
+import UploadReport from './components/UploadReport';
 
 import { Context } from "./main";
 import axios from "axios";
@@ -54,6 +55,7 @@ const App = () => {
         <Route path="/admin/addnew" element={<AddNewAdmin />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/doctors" element={<Doctors />} />
+        <Route path="/upload-report" element={<UploadReport />} />
         <Route path="/stats" element={<Stats />} /> {/* ✅ Added Stats route */}
       </Routes>
       <ToastContainer position="top-center" />
