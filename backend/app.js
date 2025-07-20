@@ -17,9 +17,10 @@ const app = express();
 // ✅ CORS setup: allow only the frontend deployed URL
 app.use(
   cors({
-    origin: "https://hospital-management-system-self-zeta.vercel.app/", 
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "https://hospital-management-system-self-zeta.vercel.app/", // ✅ your Vercel frontend domain here
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
   })
 );
 
