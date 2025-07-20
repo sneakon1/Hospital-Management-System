@@ -15,12 +15,14 @@ config({ path: "./config.env" });
 const app = express();
 
 // ✅ CORS setup: allow only the frontend deployed URL
+const allowedOrigin = "https://hospital-management-system.vercel.app";
+
 app.use(
   cors({
-    origin: "https://hospital-management-system-self-zeta.vercel.app/", // ✅ your Vercel frontend domain here
-    credentials: true,
+    origin: allowedOrigin,
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
